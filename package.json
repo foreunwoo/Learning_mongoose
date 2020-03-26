@@ -1,0 +1,21 @@
+{
+  "name": "learn-mongoose",
+  "version": "1.0.0",
+  "description": "mongoDB 프로젝트",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "strat": "node ./bin/www"
+  },
+  "author": "eunwoo",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "debug": "~2.6.9",
+    "express": "^4.17.1",
+    "http-errors": "~1.6.2",
+    "mongoose": "^5.4.20",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.3"
+  }
+}
