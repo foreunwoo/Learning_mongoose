@@ -5,7 +5,7 @@ var router = express.Router();
 
 // GET /comments/:id
 router.get('/:id', function (req, res, next) {
-  Comment.find({ commenter: req.params.id })
+  Comment.find({ commenter: req.params.id }).populate('commenter') // join과 같은 기능
     .then((comments) => {
       res.status(201).json(comments);
     })
