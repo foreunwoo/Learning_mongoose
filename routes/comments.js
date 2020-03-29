@@ -3,11 +3,11 @@ var Comment = require('../schemas/comment');
 
 var router = express.Router();
 
+// GET /comments/:id
 router.get('/:id', function (req, res, next) {
-  Comment.find({ commenter: req.params.id }).populate('commenter')
+  Comment.find({ commenter: req.params.id })
     .then((comments) => {
-      console.log(comments);
-      res.json(comments);
+      res.status(201).json(comments);
     })
     .catch((err) => {
       console.error(err);
@@ -16,27 +16,28 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  const comment = new Comment({
+  const post = new Comment({
     commenter: req.body.id,
     comment: req.body.comment,
   });
-  comment.save()
+  post.save()
     .then((result) => {
-      return Comment.populate(result, { path: 'commenter' });
-    })
-    .then((result) => {
-      res.status(201).json(result);
+    res.status(201).json(result);
     })
     .catch((err) => {
-      console.error(err);
-      next(err);
+    console.error(err);
+    next(err);
     });
 });
 
 router.patch('/:id', function (req, res, next) {
-  Comment.update({ _id: req.params.id }, { comment: req.body.comment })
+  Comment.update({ // update({ 조건절 }, { 내용 }) sequelize랑 반대
+    _id: req.params.id,
+  }, {
+    comment: req.body.comment,
+  })
     .then((result) => {
-      res.json(result);
+      res.status(201).json(result);
     })
     .catch((err) => {
       console.error(err);
@@ -47,7 +48,7 @@ router.patch('/:id', function (req, res, next) {
 router.delete('/:id', function (req, res, next) {
   Comment.remove({ _id: req.params.id })
     .then((result) => {
-      res.json(result);
+      res.status(201).json(result);
     })
     .catch((err) => {
       console.error(err);
